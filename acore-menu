@@ -1,0 +1,111 @@
+#!/bin/bash
+# Include colors
+source ./data/colors.sh
+
+# Function to check if script is running with sudo
+check_sudo() {
+    if [ "$(id -u)" -ne 0 ]; then
+        echo
+        echo -e "${YELLOW}[Warning]: This script requires sudo privileges to run.${NC}"
+        echo
+        exit 1
+    fi
+}
+
+# Call check_sudo function to ensure script runs with sudo
+check_sudo
+
+# Set directory path
+directory="./data/"
+
+# Check if .sh files are executable
+if find "$directory" -type f -name '*.sh' -perm /u+x | grep -q .; then
+    echo -e "${GREEN}Executable permissions are already set for .sh files in $directory${NC}"
+else
+    # Ensure all .sh files are executable
+    if find "$directory" -type f -name '*.sh' -exec chmod +x {} +; then
+        echo "Executable permissions set for all .sh files in $directory"
+    else
+        echo "Error: Failed to set executable permissions for .sh files in $directory"
+    fi
+fi
+
+sleep 3
+
+# Function to install AzerothCore
+install_azerothcore() {
+    echo
+    echo "Installing AzerothCore..."
+    ./data/install-core.sh
+}
+
+# Function to configure realm
+configure_realm() {
+    echo
+    echo "Configuring realm..."
+    ./data/update_realmlist.sh
+}
+
+# Function to install AzerothCore as Service
+install_service() {
+    echo
+    echo "Uninstalling AzerothCore..."
+    ./data/install_services.sh
+}
+
+# Function to uninstall AzerothCore as Service
+uninstall_service() {
+    echo
+    echo "Uninstalling AzerothCore..."
+    ./data/uninstall_services.sh
+}
+
+# Function to uninstall AzerothCore
+uninstall_azerothcore() {
+    echo
+    echo "Uninstalling AzerothCore..."
+    ./data/uninstall.sh
+}
+
+# Main menu loop
+while true; do
+    clear
+    echo
+    echo -e "${YELLOW}========== AzerothCore Setup ==========${NC}"
+    echo
+    echo -e "${YELLOW}1.${NC} Install AzerothCore"
+    echo -e "${YELLOW}2.${NC} Configure Realm"
+    echo -e "${YELLOW}3.${NC} Install Service"
+    echo -e "${YELLOW}4.${NC} Uninstall Service"
+    echo -e "${YELLOW}5.${NC} Uninstall AzerothCore"
+    echo -e "${YELLOW}6.${NC} Exit"
+    echo
+    read -p "Enter your choice:" choice
+    case $choice in
+        1)
+            install_azerothcore
+            ;;
+        2)
+            configure_realm
+            ;;
+        3)
+            install_service
+            ;;
+        4)
+            uninstall_service
+            ;;
+        5)
+            uninstall_azerothcore
+            ;;
+        6)
+            echo "Exiting..."
+            exit 0
+            ;;
+        *)
+            echo "Invalid choice. Please enter a number from 1 to 6."
+            ;;
+    esac
+
+    read -p "Press Enter to continue..."
+done
+
