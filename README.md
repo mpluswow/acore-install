@@ -25,8 +25,7 @@ Think of this script as your easiest way to install AzerothCore. It does the fol
 
    ```bash
    chmod +x acore-menu.sh
-
-   ```bash
+ 
    sudo ./acore-menu.sh
 
 
