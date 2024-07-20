@@ -1,5 +1,5 @@
 #!/bin/bash
-
+source ./data/colors.sh
 log() {
     local message="$1"
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $message"
@@ -31,6 +31,30 @@ update_realmlist() {
     log "Realmlist updated successfully."
 }
 
+# Function to read input with a hint
+read_with_hint() {
+    local prompt="$1"
+    local hint="$2"
+    local input=""
+
+    while true; do
+        # Display prompt with hint
+        echo -n "$prompt (Default: $hint): "
+        
+        # Read user input
+        read -r input
+
+        # Ensure the input is not empty
+        if [[ -n $input ]]; then
+            break
+        else
+            echo -e "${RED}Input cannot be empty. Please enter a valid value.${NC}"
+        fi
+    done
+
+    REPLY="$input"
+}
+
 # Main function
 main() {
     # Prompt user for MySQL credentials
@@ -39,14 +63,17 @@ main() {
     read -s -p "Enter MySQL password: " db_password
     echo
     
-    # Prompt user for realm_id
-    read -p "Enter realm_id: " realm_id
+    # Prompt user for realm_id with a hint
+    read_with_hint "Enter realm_id" "1"
+    realm_id="$REPLY"
     
-    # Prompt user for new_name
-    read -p "Enter new realm name: " new_name
+    # Prompt user for new_name with a hint
+    read_with_hint "Enter new realm name" "AzerothCore"
+    new_name="$REPLY"
     
-    # Prompt user for new_address
-    read -p "Enter new address: " new_address
+    # Prompt user for new_address with a hint
+    read_with_hint "Enter new address" "127.0.0.1"
+    new_address="$REPLY"
 
     # Validate MySQL connection
     validate_mysql_connection
