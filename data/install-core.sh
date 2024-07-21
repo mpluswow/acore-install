@@ -127,7 +127,7 @@ setup_build_environment() {
 
     if [[ "$install_modules" == "yes" ]]; then
         # Install additional modules
-        "/home/$USERNAME/install-acore/data/install_modules.sh"
+        "./data/install_modules.sh"
         if [[ $? -ne 0 ]]; then
             echo
             echo "Error: Custom module installation failed!"
