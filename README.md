@@ -26,9 +26,9 @@ Think of this script as your easiest way to install AzerothCore. It does the fol
    Ensure the script is executable. Open your terminal and type:
 
    ```bash
-   chmod +x acore-menu.sh
+   chmod +x acore-menu
  
-   sudo ./acore-menu.sh
+   sudo ./acore-menu
 
 
 
@@ -44,6 +44,7 @@ ensuring that your server environment is prepared.
 
 ### Repository Setup
 Clones the latest AzerothCore source code directly from GitHub, ensuring you have the freshest version of the software. 
+
 [WARNING] It removes any old versions to avoid conflicts.
 
 ### Customization 
@@ -55,8 +56,13 @@ Once the core installation is complete, the script runs additional setup tasks t
 including GAME DATA download, worldserver and authserver configuration.
 
 
+### To Do Functions
 
+-Admin and RA accounts creation after build.
 
+-Optional Mysql Server installation.
+
+-Webserver + BLizzCMS or FusionGEN installation.
 
 
 
