@@ -15,6 +15,8 @@ Think of this script as your easiest way to install AzerothCore. It does the fol
 
 ## What You Need
 
+- **Dynu DDNS**: If you don't have a static IP address and want to use the DDNS feature, you'll need to create an account and set up a DDNS host at https://www.dynu.com/
+
 - **sudo Access**: This script requires elevated permissions to make system changes, so you'll need to run it with `sudo`.
 - **Linux Server**: Designed to run in a Bash shell, which is common on most Linux systems.
 
